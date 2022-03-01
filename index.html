@@ -12,30 +12,49 @@
 <body>
     <script src="three.js"></script>
     <script>
-			const scene = new THREE.Scene();
-			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-			const renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-			const geometry = new THREE.BoxGeometry();
-			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			const cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 
-			camera.position.z = 5;
+        const cubeList = [];
 
-			function animate() {
-				requestAnimationFrame( animate );
+        for (let i = -5; i < 5; i++) {
+            for (let x = -10; x < 10; x++) {
+                const cube = new THREE.LineSegments(geometry, material);
+                cube.position.x = x * 2;
+                cube.position.y = i * 2;
+                cube.position.z = -25 + (-i * 2);
+                cubeList.push(cube);
+                scene.add(cube);
+            }
+        }
 
-				cube.rotation.x += 0.01;
-				cube.rotation.y += 0.01;
+        camera.position.z = 10;
+        camera.rotation.x = -0.25;
 
-				renderer.render( scene, camera );
-			};
+        let timer = 0;
+        function animate() {
+            requestAnimationFrame(animate);
 
-			animate();
+            for (let i = 0; i < cubeList.length; i++) {
+                cubeList[i].rotation.x = timer * i;
+            }
+
+            timer += 0.01;
+
+            camera.position.x = Math.sin(timer * 2) * 10;//, 0, Math.cos(timer*5) * 100);
+            camera.position.z = Math.cos(timer * 2) * 10;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
     </script>
 </body>
 </html>
