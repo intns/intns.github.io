@@ -24,14 +24,16 @@
 
         const cubeList = [];
 
-        for (let i = -5; i < 5; i++) {
-            for (let x = -10; x < 10; x++) {
-                const cube = new THREE.LineSegments(geometry, material);
-                cube.position.x = x * 2;
-                cube.position.y = i * 2;
-                cube.position.z = -25 + (-i * 2);
-                cubeList.push(cube);
-                scene.add(cube);
+        for (let y = -5; y < 5; y++) {
+            for (let i = -5; i < 5; i++) {
+                for (let x = -5; x < 5; x++) {
+                    const cube = new THREE.LineSegments(geometry, material);
+                    cube.position.x = x * y;
+                    cube.position.y = x * i;
+                    cube.position.z = -25 + (-i * 2);
+                    cubeList.push(cube);
+                    scene.add(cube);
+                }
             }
         }
 
@@ -48,8 +50,8 @@
 
             timer += 0.01;
 
-            camera.position.x = Math.sin(timer * 2) * 10;//, 0, Math.cos(timer*5) * 100);
-            camera.position.z = Math.cos(timer * 2) * 10;
+            camera.position.x = Math.sin(timer * 2) * 10;
+            camera.position.y = 10 + Math.sin(timer * 2) * 10;
 
             renderer.render(scene, camera);
         };
