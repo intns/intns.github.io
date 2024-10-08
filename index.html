@@ -1,62 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>m5t2 Art</title>
-    <style>
-        body {
-            margin: 0;
-        }
-    </style>
-</head>
-<body>
-    <script src="three.js"></script>
-    <script>
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        const geometry = new THREE.BoxGeometry();
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-
-        const cubeList = [];
-
-        for (let y = -5; y < 5; y++) {
-            for (let i = -5; i < 5; i++) {
-                for (let x = -10; x < 10; x++) {
-                    const cube = new THREE.LineSegments(geometry, material);
-                    cube.position.x = x * y;
-                    cube.position.y = x * i;
-                    cube.position.z = -25 + (-i * 2);
-                    cubeList.push(cube);
-                    scene.add(cube);
-                }
-            }
-        }
-
-        camera.position.z = 10;
-        camera.rotation.x = -0.25;
-
-        let timer = 0;
-        function animate() {
-            requestAnimationFrame(animate);
-
-            for (let i = 0; i < cubeList.length; i++) {
-                cubeList[i].rotation.x = timer * i;
+    <head>
+        <meta charset="utf-8">
+        <title>intns</title>
+        <style>
+            body {
+                margin: 0;
             }
 
-            timer += 0.01;
+            #controls {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                font-family: monospace;
+                color: white;
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 10px;
+                border-radius: 5px;
+                font-size: 16px;
+                display: none;
+            }
+        </style>
+    </head>
 
-            camera.position.x = Math.sin(timer * 2) * 10;
-            camera.position.y = 10 + Math.sin(timer * 2) * 10;
+    <body>
+        <div id="controls">Controls: WASD</div>
+        <script src="three.js"></script>
+        <script src="intns.js"></script>
+    </body>
 
-            renderer.render(scene, camera);
-        };
-
-        animate();
-    </script>
-</body>
 </html>

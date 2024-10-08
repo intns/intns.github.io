@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Methods of Modern Cryptography</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="118c2c0a-33d6-80fe-ab15-e7b15ed8c63d" class="page sans"><header><h1 class="page-title">Methods of Modern Cryptography</h1><p class="page-description"></p></header><div class="page-body"><h1 id="119c2c0a-33d6-80da-bcb4-c69c14e00698" class="">Difficult parts to remember</h1><p id="119c2c0a-33d6-807d-a281-f6e59841f4f7" class="">Feistel network / SPN (make sure you understand Round/Iterative/Product for FUCKS sakes)</p><h2 id="119c2c0a-33d6-804f-8b34-ea6b73568171" class="">Confusion / Diffusion</h2><ul id="119c2c0a-33d6-80ad-bc69-d9784ee9924a" class="bulleted-list"><li style="list-style-type:disc">Confusion hides relationship of the Ciphertext and the Key<ul id="119c2c0a-33d6-801e-b115-e55db8d218d2" class="bulleted-list"><li style="list-style-type:circle">S-Box</li></ul></li></ul><ul id="119c2c0a-33d6-8019-a36f-f21dba5951c5" class="bulleted-list"><li style="list-style-type:disc">Diffusion hides relationship of the Ciphertext and the Plaintext<ul id="119c2c0a-33d6-80f9-bb60-e8463c8bd285" class="bulleted-list"><li style="list-style-type:circle">P-Box</li></ul></li></ul><ul id="119c2c0a-33d6-8019-ab28-dc8ddd793cde" class="bulleted-list"><li style="list-style-type:disc">Achieve both of these with a Product (Substitution-Permutation) network</li></ul><h2 id="118c2c0a-33d6-8002-a9f1-c58546745a19" class="">Exclusive-OR (XOR)</h2><ul id="118c2c0a-33d6-8074-ac6e-e4e543bfebab" class="bulleted-list"><li style="list-style-type:disc">Bit-level encryption, easy to implement</li></ul><ul id="118c2c0a-33d6-804b-a908-e10b9c56dd84" class="bulleted-list"><li style="list-style-type:disc">XOR is true exclusively with opposite inputs</li></ul><table id="118c2c0a-33d6-8046-8bf2-f8676f6acf6c" class="simple-table"><thead class="simple-table-header"><tr id="b1140b72-1545-4ab5-83d3-e1ecd6662cfa"><th id="]L?z" class="simple-table-header-color simple-table-header" style="width:105px"><strong><span style="border-bottom:0.05em solid">Operand A</span></strong></th><th id="ohNo" class="simple-table-header-color simple-table-header" style="width:105px"><strong><span style="border-bottom:0.05em solid">Operation</span></strong></th><th id="}p\Z" class="simple-table-header-color simple-table-header" style="width:105px"><strong><span style="border-bottom:0.05em solid">Operand B</span></strong></th><th id="hjEk" class="simple-table-header-color simple-table-header" style="width:105px"><strong><span style="border-bottom:0.05em solid">Result</span></strong></th></tr></thead><tbody><tr id="e2a5a215-d635-489a-bce8-97b3233186aa"><td id="]L?z" class="" style="width:105px">0</td><td id="ohNo" class="" style="width:105px">XOR</td><td id="}p\Z" class="" style="width:105px">0</td><td id="hjEk" class="" style="width:105px">0</td></tr><tr id="daf14e84-c418-46e4-9fef-15ac7e46ccbb"><td id="]L?z" class="" style="width:105px">0</td><td id="ohNo" class="" style="width:105px">XOR</td><td id="}p\Z" class="" style="width:105px">1</td><td id="hjEk" class="" style="width:105px">1</td></tr><tr id="118c2c0a-33d6-8047-bf14-ee70cf20dc8f"><td id="]L?z" class="" style="width:105px">1</td><td id="ohNo" class="" style="width:105px">XOR</td><td id="}p\Z" class="" style="width:105px">0</td><td id="hjEk" class="" style="width:105px">1</td></tr><tr id="118c2c0a-33d6-803c-b681-ff0172301bd8"><td id="]L?z" class="" style="width:105px">1</td><td id="ohNo" class="" style="width:105px">XOR</td><td id="}p\Z" class="" style="width:105px">1</td><td id="hjEk" class="" style="width:105px">0</td></tr></tbody></table><ul id="118c2c0a-33d6-80ba-b0c3-cade9f33470b" class="bulleted-list"><li style="list-style-type:disc">Same key is used to encrypt/decrypt</li></ul><table id="118c2c0a-33d6-8001-805d-eb57c6370545" class="simple-table"><tbody><tr id="d1193774-4591-4a99-a084-36fc0dee41d8"><th id="urOc" class="simple-table-header-color simple-table-header"><strong><span style="border-bottom:0.05em solid">Plaintext</span></strong></th><td id="NFwi" class="" style="width:52.5px">1</td><td id="accZ" class="" style="width:52.5px">1</td><td id="vOHc" class="" style="width:52.5px">0</td><td id="OK;`" class="" style="width:52.5px">0</td><td id="Xld~" class="" style="width:52.5px">1</td><td id="vALF" class="" style="width:52.5px">0</td><td id="tfuj" class="" style="width:52.5px">1</td><td id="]LAu" class="" style="width:52.5px">0</td></tr><tr id="2f82ff39-4043-4dfa-a100-6c80d486015f"><th id="urOc" class="simple-table-header-color simple-table-header"><strong><span style="border-bottom:0.05em solid">Key</span></strong></th><td id="NFwi" class="" style="width:52.5px">1</td><td id="accZ" class="" style="width:52.5px">1</td><td id="vOHc" class="" style="width:52.5px">1</td><td id="OK;`" class="" style="width:52.5px">1</td><td id="Xld~" class="" style="width:52.5px">0</td><td id="vALF" class="" style="width:52.5px">0</td><td id="tfuj" class="" style="width:52.5px">0</td><td id="]LAu" class="" style="width:52.5px">0</td></tr><tr id="118c2c0a-33d6-8080-a2e9-ccbbb71b44e7"><th id="urOc" class="simple-table-header-color simple-table-header"><strong><span style="border-bottom:0.05em solid">Ciphertext</span></strong></th><td id="NFwi" class="" style="width:52.5px">0</td><td id="accZ" class="" style="width:52.5px">0</td><td id="vOHc" class="" style="width:52.5px">1</td><td id="OK;`" class="" style="width:52.5px">1</td><td id="Xld~" class="" style="width:52.5px">1</td><td id="vALF" class="" style="width:52.5px">0</td><td id="tfuj" class="" style="width:52.5px">1</td><td id="]LAu" class="" style="width:52.5px">0</td></tr></tbody></table><h2 id="118c2c0a-33d6-8090-98fc-e4c2a77e78d3" class="">Shift or Rotate</h2><ul id="118c2c0a-33d6-807b-ad68-de9d8cf53bbd" class="bulleted-list"><li style="list-style-type:disc">Bitwise shift the plaintext bits by X amount</li></ul><h3 id="118c2c0a-33d6-8093-93df-ca634f00f0f7" class="">Logical Shift</h3><ul id="118c2c0a-33d6-80c4-9ff7-e0242f93c131" class="bulleted-list"><li style="list-style-type:disc">Bits that are shifted and having no adjacent bit depending on the L/R shift always get 0</li></ul><figure id="118c2c0a-33d6-8011-90b1-f064fbe1a6dd" class="image"><a href="image.png"><img style="width:707.984375px" src="image.png"/></a><figcaption>Note the blue brackets, b0 on a LLS is always 0 for a logical shift, and for an RLS b7 is 0.</figcaption></figure><h3 id="118c2c0a-33d6-809f-ad74-f16852ba66da" class="">Circular Shift</h3><ul id="118c2c0a-33d6-8009-be6b-dcd8670ca772" class="bulleted-list"><li style="list-style-type:disc">Bits that are shifted always get value of their adjacent bit depending on the L/R shift<ul id="118c2c0a-33d6-8086-9e24-db8dd0cc8b90" class="bulleted-list"><li style="list-style-type:circle">Often used for cryptographic applications, lossless method of information transfer</li></ul></li></ul><figure id="118c2c0a-33d6-8074-92bc-f27d30a6db8b" class="image"><a href="image%201.png"><img style="width:707.984375px" src="image%201.png"/></a></figure><h2 id="118c2c0a-33d6-8031-9696-d5e58b97e7a1" class="">P-Box (Permutation-Box) / DES</h2><ul id="118c2c0a-33d6-8025-aa24-c4c9df49a289" class="bulleted-list"><li style="list-style-type:disc">Increases the diffusion &amp; confusion of data, essential property for security<ul id="118c2c0a-33d6-8022-aa72-d1279db923cb" class="bulleted-list"><li style="list-style-type:circle">Diffusion = make each bit of ciphertext depend on as many bits of plaintext as possible (changes in input result in more complex changes of output)</li></ul></li></ul><ol type="1" id="118c2c0a-33d6-801e-886e-db9b5ae81550" class="numbered-list" start="1"><li>Permute (reorder) bits of the input data</li></ol><ol type="1" id="118c2c0a-33d6-8070-aac0-c71a5509e7e4" class="numbered-list" start="2"><li>Shuffle input bits in predetermined manner (based on a fixed or key-dependent table)</li></ol><ol type="1" id="118c2c0a-33d6-8010-a1de-e32b521b8e04" class="numbered-list" start="3"><li>Output the permuted bits (ciphertext)</li></ol><h3 id="118c2c0a-33d6-80c6-8b04-c87c7043aaab" class="">Straight P-Box</h3><ul id="118c2c0a-33d6-80ed-add1-f957e7a18799" class="bulleted-list"><li style="list-style-type:disc">No. of inputs and outputs are equal<figure id="118c2c0a-33d6-8050-bdd3-cbb9f4504ec9" class="image"><a href="1equal-.png"><img style="width:240px" src="1equal-.png"/></a></figure></li></ul><h3 id="118c2c0a-33d6-8072-be43-c1ffcda03b08" class="">Expansion P-Box</h3><ul id="118c2c0a-33d6-803d-a5c7-df8beb55ea96" class="bulleted-list"><li style="list-style-type:disc">No. of outputs &gt; No. of inputs<ul id="118c2c0a-33d6-80c8-9f92-d07c25606bd0" class="bulleted-list"><li style="list-style-type:circle">Values get repeated as one input may generate multiple outputs</li></ul><figure id="118c2c0a-33d6-8018-b5db-e0bb38123442" class="image"><a href="image%202.png"><img style="width:240px" src="image%202.png"/></a></figure></li></ul><h3 id="118c2c0a-33d6-80d2-a5da-d3376c5f7a7c" class="">Compression P-Box</h3><ul id="118c2c0a-33d6-80ae-87f6-e1f263532b71" class="bulleted-list"><li style="list-style-type:disc">No. of outputs &lt; No. of inputs<ul id="118c2c0a-33d6-8031-8443-d6fe3e15fec7" class="bulleted-list"><li style="list-style-type:circle">Bits are dropped as not all inputs are considered for output.</li></ul><figure id="118c2c0a-33d6-8020-9bdf-f62bfdac4235" class="image"><a href="2compression.png"><img style="width:240px" src="2compression.png"/></a></figure></li></ul><h2 id="118c2c0a-33d6-8031-88be-e5f8137f8897" class="">S-Box (Substitution-Box)</h2><ul id="119c2c0a-33d6-808d-815c-d1ad38633199" class="bulleted-list"><li style="list-style-type:disc">Non-linear substitution of input bits<ul id="119c2c0a-33d6-809d-bdd2-fda2ab52884a" class="bulleted-list"><li style="list-style-type:circle">Adds confusion (stops linear and differential cryptanalysis)</li></ul></li></ul><ul id="119c2c0a-33d6-8044-ae96-d6b258773907" class="bulleted-list"><li style="list-style-type:disc">In most implementations the S-Box is a lookup table.</li></ul><h2 id="118c2c0a-33d6-8035-b21e-fa15ff95689e" class="">Round/Iterative/Product</h2><ul id="119c2c0a-33d6-80df-8075-d64791716da0" class="bulleted-list"><li style="list-style-type:disc">Enhance security by repeatedly applying transformations to data<ul id="119c2c0a-33d6-80e3-9867-c81f9dbf4164" class="bulleted-list"><li style="list-style-type:circle">Used in DES and AES.</li></ul></li></ul><h3 id="119c2c0a-33d6-80cb-bd2e-cb7f0c8e5a59" class="">Round (Function)</h3><ul id="119c2c0a-33d6-805a-bdc7-ebd27a76c25f" class="bulleted-list"><li style="list-style-type:disc">Rounds are repeated cycles of operations applied to input data<ul id="119c2c0a-33d6-80f6-8985-d49c76946b83" class="bulleted-list"><li style="list-style-type:circle">Can be substitution, permutation, key-mixing, other non-linear transformations (remember, linear is reversible easily)</li></ul></li></ul><ul id="119c2c0a-33d6-808f-97c1-e2ce6642a6f2" class="bulleted-list"><li style="list-style-type:disc">Number of rounds is very important, too few is insecure, too many is too slow (unnecessary)</li></ul><ul id="119c2c0a-33d6-808e-bd6e-e11973aa6820" class="bulleted-list"><li style="list-style-type:disc">Each round uses a <strong>unique subkey </strong>derived from the main encryption key through a process called the <strong>Key Schedule</strong></li></ul><h3 id="119c2c0a-33d6-8045-9482-fef9b9f05adb" class="">Iteration</h3><ul id="119c2c0a-33d6-80ea-9f3c-ffbe2577f250" class="bulleted-list"><li style="list-style-type:disc">Repeating the same or similar set of operations over multiple rounds</li></ul><ul id="119c2c0a-33d6-80ed-b588-d705fe658e8e" class="bulleted-list"><li style="list-style-type:disc"><strong>Iterating ‘rounds’ confuses and diffuses the data even more</strong></li></ul><h3 id="119c2c0a-33d6-8094-a6f5-d9ce347acf46" class="">Product</h3><ul id="119c2c0a-33d6-80d5-8170-f92c227970d9" class="bulleted-list"><li style="list-style-type:disc">Product refers to the combination of operations to result in the strong cryptographic algorithm<ul id="119c2c0a-33d6-80d6-a5b6-fbaf7252f28a" class="bulleted-list"><li style="list-style-type:circle"><strong>Substitution </strong>- replacing input bits with different output bits using an S-Box</li></ul><ul id="119c2c0a-33d6-8072-a60d-c9c850fe42ec" class="bulleted-list"><li style="list-style-type:circle"><strong>Permutation </strong>- reordering / shuffling bits</li></ul><ul id="119c2c0a-33d6-805b-994f-c997a512cacc" class="bulleted-list"><li style="list-style-type:circle"><strong>Key Mixing </strong>- XORing the current state with a subkey derived from the encryption key</li></ul></li></ul><ul id="119c2c0a-33d6-80bc-8fd2-f7d015dad892" class="bulleted-list"><li style="list-style-type:disc"><strong>Individually, these are not strong, but when combined, their “product” creates a very secure process</strong></li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="119c2c0a-33d6-8080-a8b1-c32204cf55f2"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="b5f88f34-cd92-4d1f-9d2b-ff3788e6377b" class="">Don’t FUCKING forget. Feistel splits in two and uses round function, SPN just does substitution and permutes.</p></div></figure><h3 id="118c2c0a-33d6-80da-9550-c4b0ff3fee0f" class="">Substitution-Permutation Network (SPN) / Non-Feistel Network</h3><ul id="119c2c0a-33d6-8056-9256-df9543861042" class="bulleted-list"><li style="list-style-type:disc">SPN is a type of block cipher that combines substitution and permutation<ul id="119c2c0a-33d6-80e5-818c-c9ac229895d3" class="bulleted-list"><li style="list-style-type:circle"><strong><span style="border-bottom:0.05em solid">High resistance to cryptanalysis</span></strong> due to its heavy use of non-linear operations (S-Box)</li></ul><ul id="119c2c0a-33d6-80ce-b372-d0c6dc4f5216" class="bulleted-list"><li style="list-style-type:circle"><strong><span style="border-bottom:0.05em solid">Strong diffusion and confusion</span></strong> properties</li></ul></li></ul><ol type="1" id="119c2c0a-33d6-80fe-a8c2-d1c0718d4a00" class="numbered-list" start="1"><li><strong>Substitution </strong>- uses S-Boxes to substitute input data<ol type="a" id="119c2c0a-33d6-80d6-800a-d4a7c657b847" class="numbered-list" start="1"><li>Adds non-linearity</li></ol></li></ol><ol type="1" id="119c2c0a-33d6-808d-8dcf-fcfd799a3c98" class="numbered-list" start="2"><li><strong>Permutation </strong>- uses P-Boxes to reorder bits or bytes<ol type="a" id="119c2c0a-33d6-80b1-8784-c35404896830" class="numbered-list" start="1"><li>Ensures small changes affect many bits in the output, increases diffusion</li></ol></li></ol><ol type="1" id="119c2c0a-33d6-80e8-9b37-c5bded95f785" class="numbered-list" start="3"><li><strong>Key Mixing</strong><ol type="a" id="119c2c0a-33d6-80c8-9b33-d964831c1005" class="numbered-list" start="1"><li>Each round involves a layer of substitution followed by permutation, followed by key-mixing (XOR with a round subkey)</li></ol><ol type="a" id="119c2c0a-33d6-805c-913c-ff78776ec037" class="numbered-list" start="2"><li>Repeated multiple times</li></ol></li></ol><h3 id="118c2c0a-33d6-80d4-a98a-c44b20a084df" class="">Feistel Network / Feistel Cipher Structure</h3><ul id="119c2c0a-33d6-8050-aed6-f3d18a9c63a4" class="bulleted-list"><li style="list-style-type:disc">Type of block cipher that divides data in 2 halves and processes them in a symmetric way over multiple rounds<ul id="119c2c0a-33d6-8036-b7ec-c25f102ef81e" class="bulleted-list"><li style="list-style-type:circle">Allows for easy implementation of decryption since the process is symmetric</li></ul><ul id="119c2c0a-33d6-807c-9651-ed73dc5f4af0" class="bulleted-list"><li style="list-style-type:circle">Highly flexible, different round functions can be designed to meet different security needs</li></ul></li></ul><ol type="1" id="119c2c0a-33d6-80d9-9edc-c63ffa91ebdb" class="numbered-list" start="1"><li><strong>Data splitting</strong><ol type="a" id="119c2c0a-33d6-8043-a853-e2e4f1d64537" class="numbered-list" start="1"><li><strong>Input data is split into L/R,</strong> only one half (normally right) is transformed per round, other half remains unchanged and is swapped</li></ol></li></ol><ol type="1" id="119c2c0a-33d6-807a-ad88-fe66ec94cd5a" class="numbered-list" start="2"><li><strong>Round function</strong><ol type="a" id="119c2c0a-33d6-8086-926a-c076901d8bc4" class="numbered-list" start="1"><li>In each round the right half is passed through <a href="https://www.notion.so/Methods-of-Modern-Cryptography-118c2c0a33d680feab15e7b15ed8c63d?pvs=21">the round function</a></li></ol><ol type="a" id="119c2c0a-33d6-804c-a56e-fb4761547fa9" class="numbered-list" start="2"><li>Output of the round function is XORed with the left half, creating a new right half</li></ol><ol type="a" id="119c2c0a-33d6-8093-b0ce-f824c291762c" class="numbered-list" start="3"><li>After each round, left and right are swapped</li></ol></li></ol><ol type="1" id="119c2c0a-33d6-80b7-b385-fa247548291e" class="numbered-list" start="3"><li><strong>Key Mixing</strong><ol type="a" id="119c2c0a-33d6-80b5-8c21-fffaa9c19f76" class="numbered-list" start="1"><li>Like the SPN, each round involves XORing the data with a round subkey</li></ol></li></ol><ol type="1" id="119c2c0a-33d6-808f-a59b-cc676671b4f5" class="numbered-list" start="4"><li><strong>Structure</strong><ol type="a" id="119c2c0a-33d6-80da-ae4e-f4d74a9a4494" class="numbered-list" start="1"><li>Round operations are performed on ONE half while the other is XORed and swapped</li></ol><ol type="a" id="119c2c0a-33d6-8058-b1d0-d5faaaa5dd38" class="numbered-list" start="2"><li>Round structure is reversible, meaning encryption and decryption use the same process (but round keys are applied in reverse order)</li></ol></li></ol><h3 id="119c2c0a-33d6-8029-a4cd-c82bfa7f8f03" class="">Comparison: SPN vs. Feistel Network</h3><table id="119c2c0a-33d6-80d5-9b24-e9b444652689" class="simple-table"><thead class="simple-table-header"><tr id="119c2c0a-33d6-805c-935b-d8e01741c66d"><th id="yl&lt;~" class="simple-table-header-color simple-table-header" style="width:230px"></th><th id="nPIU" class="simple-table-header-color simple-table-header" style="width:230px"><strong>SPN (Substitution-Permutation Network)</strong></th><th id="hFrJ" class="simple-table-header-color simple-table-header" style="width:230px"><strong>Feistel Network (Feistel Cipher)</strong></th></tr></thead><tbody><tr id="119c2c0a-33d6-80cd-b5b2-eeef778e0aa8"><th id="yl&lt;~" class="simple-table-header-color simple-table-header" style="width:230px"><strong>Data Processing</strong></th><td id="nPIU" class="" style="width:230px">Entire block processed in each round</td><td id="hFrJ" class="" style="width:230px">Data is split into two halves, and only one half is processed per round</td></tr><tr id="119c2c0a-33d6-8058-b9fd-c57082d858d5"><th id="yl&lt;~" class="simple-table-header-color simple-table-header" style="width:230px"><strong>Structure</strong></th><td id="nPIU" class="" style="width:230px">Substitution + Permutation (S-Box + P-Box) over multiple rounds</td><td id="hFrJ" class="" style="width:230px">Round function applied to one half, then XOR and swap</td></tr><tr id="119c2c0a-33d6-80ba-955e-c1c8cf069cb7"><th id="yl&lt;~" class="simple-table-header-color simple-table-header" style="width:230px"><strong>Decryption Process</strong></th><td id="nPIU" class="" style="width:230px">Requires inversion of all steps (different from encryption)</td><td id="hFrJ" class="" style="width:230px">Same structure used for decryption, just reverse round key order</td></tr><tr id="119c2c0a-33d6-80d1-8610-d9a5968dae9d"><th id="yl&lt;~" class="simple-table-header-color simple-table-header" style="width:230px"><strong>Key Usage</strong></th><td id="nPIU" class="" style="width:230px">Subkeys used in each round</td><td id="hFrJ" class="" style="width:230px">Subkeys used in each round</td></tr><tr id="119c2c0a-33d6-805e-b2f5-e671a7450234"><th id="yl&lt;~" class="simple-table-header-color simple-table-header" style="width:230px"><strong>Examples</strong></th><td id="nPIU" class="" style="width:230px">AES</td><td id="hFrJ" class="" style="width:230px">DES, Blowfish, Twofish</td></tr><tr id="119c2c0a-33d6-8066-8c30-dce74a1d8506"><th id="yl&lt;~" class="simple-table-header-color simple-table-header" style="width:230px"><strong>Strengths</strong></th><td id="nPIU" class="" style="width:230px">High non-linearity, strong diffusion and confusion properties</td><td id="hFrJ" class="" style="width:230px">Symmetric decryption process, flexible design for various round functions</td></tr></tbody></table><p id="119c2c0a-33d6-8064-98aa-ce37afaa3694" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
